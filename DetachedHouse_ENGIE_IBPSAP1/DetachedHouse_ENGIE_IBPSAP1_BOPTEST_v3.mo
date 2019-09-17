@@ -193,7 +193,7 @@ protected
     annotation (Placement(transformation(extent={{-284,-144},{-270,-128}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.01)
     annotation (Placement(transformation(extent={{-300,-124},{-290,-114}})));
-  Building.Control.Regul_Ch_1_bis        regul_Chaudiere_Securite(Khea=1)
+  Building.Control.ConHea regul_Chaudiere_Securite(Khea=1)
     annotation (Placement(transformation(extent={{-307,-186},{-294,-179}})));
   Modelica.Blocks.Sources.RealExpression SetSecurityBoiler(y=273.15 + 90)
     "Security temperature setpoint for the boiler"
@@ -790,7 +790,7 @@ public
   Building.Control.Regul_Clim_1 regul_Chambre1
     annotation (Placement(transformation(extent={{10,14},{18,18}})));
   Building.Control.Regul_Clim_1 regul_Chambre2
-    annotation (Placement(transformation(extent={{68,10},{78,16}})));
+    annotation (Placement(transformation(extent={{66,10},{76,16}})));
   Building.Control.Regul_Clim_1 regul_Chambre3
     annotation (Placement(transformation(extent={{66,-46},{76,-40}})));
   Building.Control.Regul_Clim_1 regul_SDB
@@ -884,7 +884,7 @@ public
     m_flow_nominal=mBoi_flow_nominal,
     use_inputFilter=false)
     annotation (Placement(transformation(extent={{-6,-118},{4,-128}})));
-  Building.Control.Regul_Ch_1_bis conHeaRoom1(Khea=1, Ti=300)
+  Building.Control.ConHeaZon conHeaRoom1(Khea=1, Ti=300)
     annotation (Placement(transformation(extent={{-12,-146},{-2,-140}})));
   Modelica.Blocks.Sources.RealExpression realExpression19(
                                                          y=T_Chambre1.T)
@@ -905,7 +905,7 @@ public
     m_flow_nominal=mBoi_flow_nominal,
     use_inputFilter=false)
     annotation (Placement(transformation(extent={{52,-118},{62,-128}})));
-  Building.Control.Regul_Ch_1_bis conHeaRoom2(Khea=1, Ti=300)
+  Building.Control.ConHeaZon conHeaRoom2(Khea=1, Ti=300)
     annotation (Placement(transformation(extent={{44,-146},{54,-140}})));
   Modelica.Blocks.Sources.RealExpression realExpression21(y=T_Chambre2.T)
     annotation (Placement(transformation(extent={{32,-148},{38,-142}})));
@@ -924,7 +924,7 @@ public
     m_flow_nominal=mBoi_flow_nominal,
     use_inputFilter=false)
     annotation (Placement(transformation(extent={{54,-198},{64,-208}})));
-  Building.Control.Regul_Ch_1_bis conHeaRoom3(Khea=1, Ti=300)
+  Building.Control.ConHeaZon conHeaRoom3(Khea=1, Ti=300)
     annotation (Placement(transformation(extent={{46,-226},{56,-220}})));
   Modelica.Blocks.Sources.RealExpression realExpression23(y=T_Chambre3.T)
     annotation (Placement(transformation(extent={{34,-228},{40,-222}})));
@@ -943,7 +943,7 @@ public
     m_flow_nominal=mBoi_flow_nominal,
     use_inputFilter=false)
     annotation (Placement(transformation(extent={{2,-194},{12,-204}})));
-  Building.Control.Regul_Ch_1_bis conHeaBathroom(Khea=1, Ti=300)
+  Building.Control.ConHeaZon conHeaBathroom(Khea=1, Ti=300)
     annotation (Placement(transformation(extent={{-12,-222},{-2,-216}})));
   Modelica.Blocks.Sources.RealExpression realExpression25(y=T_SDB.T)
     annotation (Placement(transformation(extent={{-26,-224},{-20,-218}})));
@@ -1068,7 +1068,7 @@ public
     annotation (Placement(transformation(extent={{-80,-136},{-74,-130}})));
   Modelica.Blocks.Sources.RealExpression realExpression31(y=T_Salon.T)
     annotation (Placement(transformation(extent={{-80,-140},{-74,-134}})));
-  Building.Control.Regul_Ch_1_bis conHeaLivingRoom(Khea=1, Ti=300)
+  Building.Control.ConHeaZon conHeaLivingRoom(Khea=1, Ti=300)
     annotation (Placement(transformation(extent={{-70,-138},{-60,-132}})));
   Buildings.Fluid.FixedResistances.Junction inSplVal1(
     redeclare package Medium = MediumW,
@@ -1219,7 +1219,7 @@ public
     TRet_nominal=TRet_nominal,
     TOut_nominal(displayUnit="degC") = 268.15)
     annotation (Placement(transformation(extent={{-130,-126},{-126,-122}})));
-  Building.Control.Regul_Ch_1_bis conHeaBoiler(Khea=1)
+  Building.Control.ConHea conHeaBoiler(Khea=1)
     annotation (Placement(transformation(extent={{-122,-126},{-116,-122}})));
   Modelica.Blocks.Sources.RealExpression realExpression29(y=schedules_RT2012_MI.HeaSetRT12
          + delta_ST_rad)
@@ -1239,13 +1239,13 @@ public
         extent={{-4,3},{4,-3}},
         rotation=90,
         origin={-91,-136})));
-  Building.Control.Regul_Ch_1_bis con_pumHea(
+  Building.Control.ConHea con_pumHea(
     Khea=mBoi_flow_nominal,
     k=1,
     Ti=600) annotation (Placement(transformation(
         extent={{13.0001,-8},{-13,8.00002}},
         rotation=180,
-        origin={-185,-206})));
+        origin={-191,-206})));
   Buildings.Fluid.Movers.FlowControlled_m_flow
                                            pompe_chaudiere(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -1266,17 +1266,17 @@ public
         MediumW)
     annotation (Placement(transformation(extent={{-110,-194},{-102,-186}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaTHeaSetZone(
-    KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature,
-
+    KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"),
     description="Zone setpoint temperature")
     annotation (Placement(transformation(extent={{-332,40},{-326,46}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaTCooSetZone1(
-    KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature,
 
+  IBPSA.Utilities.IO.SignalExchange.Read reaTCooSetZone1(
+    KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"),
     description="Zone setpoint temperature")
-    annotation (Placement(transformation(extent={{-336,30},{-330,36}})));
+    annotation (Placement(transformation(extent={{-332,30},{-326,36}})));
+
 equation
   // Heating production
 //  Production_Radiateur_Salon = max(heatFlowSensor_Salon_Conv.Q_flow,0)+max(heatFlowSensor_Salon_Rad.Q_flow,0);
@@ -1680,7 +1680,7 @@ equation
     annotation (Line(points={{-210,-10},{-220.4,-10}},
                                                    color={191,0,0}));
   connect(regul_Chambre2.T, T_Chambre2.T)
-    annotation (Line(points={{67.2,13},{64,13},{64,18}}, color={0,0,127}));
+    annotation (Line(points={{65.2,13},{64,13},{64,18}}, color={0,0,127}));
   connect(regul_Chambre3.T, T_Chambre3.T) annotation (Line(points={{65.2,-43},{64,
           -43},{64,-54}},          color={0,0,127}));
   connect(regul_SDB.T, T_SDB.T)
@@ -1729,8 +1729,8 @@ equation
   connect(regul_Chambre1.P, Chambre1.heaPorAir) annotation (Line(points={{18,16},
           {20,16},{20,22},{0,22},{0,18},{-8.4,18}},                  color={191,
           0,0}));
-  connect(regul_Chambre2.P, Chambre2.heaPorAir) annotation (Line(points={{78,13},
-          {80,13},{80,14},{80,22},{58,22},{58,18},{49.6,18}},   color={191,0,0}));
+  connect(regul_Chambre2.P, Chambre2.heaPorAir) annotation (Line(points={{76,13},
+          {80,13},{80,22},{58,22},{58,18},{49.6,18}},           color={191,0,0}));
   connect(regul_Chambre3.P, Chambre3.heaPorAir) annotation (Line(points={{76,-43},
           {78,-43},{78,-42},{78,-60},{60,-60},{60,-56},{49.6,-56},{49.6,
           -54}},
@@ -1747,7 +1747,7 @@ equation
       Line(points={{6.2,12},{9.36,12},{9.36,14.6667}},
                                                      color={0,0,127}));
   connect(realExpression10.y, regul_Chambre2.ConsigneClim) annotation (
-      Line(points={{64.2,10},{67.2,10},{67.2,11}},       color={0,0,127}));
+      Line(points={{64.2,10},{65.2,10},{65.2,11}},       color={0,0,127}));
   connect(realExpression12.y, regul_Chambre3.ConsigneClim) annotation (
       Line(points={{62.2,-48},{64,-48},{64,-45},{65.2,-45}},    color={0,
           0,127}));
@@ -2013,15 +2013,14 @@ equation
           -328.1,-210},{-306,-210},{-306,-216},{-273.2,-216}}, color={0,0,127}));
   connect(Meas_T_LivingRoom.y, con_HeaModeBoiler.u_m) annotation (Line(points={{
           -326.1,-247},{-266,-247},{-266,-223.2}}, color={0,0,127}));
-  connect(Boiler.T, regul_Chaudiere_Securite.T) annotation (Line(points={{-131.8,
-          -134},{-132,-134},{-132,-130},{-216,-130},{-216,-144},{-336,-144},{-336,
-          -182.5},{-308.04,-182.5}}, color={0,0,127}));
-  connect(con_pumHea.yHea, pompe_chaudiere.m_flow_in) annotation (Line(points={{-169.4,
+  connect(Boiler.T, regul_Chaudiere_Securite.T) annotation (Line(points={{-128.2,
+          -134},{-132,-134},{-132,-130},{-216,-130},{-216,-144},{-336,-144},{
+          -336,-182.5},{-308.04,-182.5}},
+                                     color={0,0,127}));
+  connect(con_pumHea.yHea, pompe_chaudiere.m_flow_in) annotation (Line(points={{-175.4,
           -206},{-83,-206},{-83,-181}},        color={0,0,127}));
   connect(Meas_T_LivingRoom.y, onOffController.u) annotation (Line(points={{-326.1,
           -247},{-314,-247},{-314,-238},{-298,-238}}, color={0,0,127}));
-  connect(con_pumHea.yHea, Boiler.m_PompeCirc) annotation (Line(points={{-169.4,
-          -206},{-169.4,-143.636},{-152,-143.636}}, color={0,0,127}));
   connect(product1.y, switch1.u1) annotation (Line(points={{-217,-176},{-208,-176},
           {-208,-152},{-256,-152},{-256,-115},{-251,-115}}, color={0,0,127}));
   connect(product1.y, greaterThreshold.u) annotation (Line(points={{-217,-176},{
@@ -2030,21 +2029,22 @@ equation
   connect(switch4.y, product1.u1) annotation (Line(points={{-221.4,-226},{-210,-226},
           {-210,-196},{-250,-196},{-250,-170},{-240,-170}}, color={0,0,127}));
   connect(Meas_T_LivingRoom.y, con_pumHea.T) annotation (Line(points={{-326.1,
-          -247},{-314,-247},{-314,-206},{-200.08,-206}},
+          -247},{-314,-247},{-314,-206},{-206.08,-206}},
                                                    color={0,0,127}));
   connect(bou.ports[1], temRet.port_a) annotation (Line(points={{-102,-190},{
           -94,-190},{-94,-174}},
                              color={0,127,255}));
   connect(realExpression17.y, regul_Salon.ConsigneClim) annotation (Line(points=
          {{-73.8,16},{-70,16},{-70,19},{-66.8,19}}, color={0,0,127}));
-  connect(switch1.y, Boiler.y) annotation (Line(points={{-239.5,-119},{-184,-119},
-          {-184,-134},{-147.8,-134}}, color={0,0,127}));
+  connect(switch1.y, Boiler.y) annotation (Line(points={{-239.5,-119},{-184,
+          -119},{-184,-134},{-152,-134}},
+                                      color={0,0,127}));
   connect(T_Chambre1.T, regul_Chambre1.T) annotation (Line(points={{6,18},{8,18},
           {8,16},{9.36,16}}, color={0,0,127}));
   connect(HeaSet_LivingRoom.y, onOffController.reference) annotation (Line(
         points={{-328.1,-210},{-306,-210},{-306,-226},{-298,-226}}, color={0,0,127}));
   connect(HeaSet_LivingRoom.y, con_pumHea.ConsigneCh) annotation (Line(points={{-328.1,
-          -210},{-314,-210},{-314,-202},{-226,-202},{-226,-211.333},{-200.08,
+          -210},{-314,-210},{-314,-202},{-226,-202},{-226,-211.333},{-206.08,
           -211.333}}, color={0,0,127}));
   connect(conHeaBoiler.yHea, val_chaudiere.y) annotation (Line(points={{-115.4,
           -124},{-113,-124},{-113,-133}},
@@ -2057,7 +2057,10 @@ equation
   connect(schedules_RT2012_MI.HeaSetRT12, reaTHeaSetZone.u) annotation (Line(
         points={{-352,38},{-336,38},{-336,43},{-332.6,43}}, color={0,0,127}));
   connect(schedules_RT2012_MI.CooSetRT12, reaTCooSetZone1.u) annotation (Line(
-        points={{-352,34.6},{-346,34.6},{-346,33},{-336.6,33}}, color={0,0,127}));
+        points={{-352,34.6},{-346,34.6},{-346,33},{-332.6,33}}, color={0,0,127}));
+  connect(con_pumHea.yHea, Boiler.m_PompeCirc) annotation (Line(points={{-175.4,
+          -206},{-168,-206},{-168,-144},{-152,-144},{-152,-143.636}}, color={0,
+          0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-380,-260},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-380,-260},{100,100}}),

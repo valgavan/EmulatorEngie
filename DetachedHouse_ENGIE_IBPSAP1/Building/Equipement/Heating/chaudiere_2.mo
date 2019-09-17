@@ -44,7 +44,7 @@ parameter Modelica.SIunits.Volume VWat=1.5E-6*chaudiere.Q_flow_nominal
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
-    annotation (Placement(transformation(extent={{-10,62}, {10,82}}),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,60},{10,80}})));
   Buildings.Fluid.Boilers.BoilerPolynomial chaudiere(
     redeclare package Medium = MediumW,
@@ -60,8 +60,8 @@ parameter Modelica.SIunits.Volume VWat=1.5E-6*chaudiere.Q_flow_nominal
            annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Interfaces.RealInput y "Connector of Real input signal 1"
-    annotation (Placement(transformation(extent={{-98,36},{-58,76}}),
-        iconTransformation(extent={{-98,36},{-58,76}})));
+    annotation (Placement(transformation(extent={{-140,36},{-100,76}}),
+        iconTransformation(extent={{-140,36},{-100,76}})));
   Modelica.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
         MediumW)
     annotation (Placement(transformation(extent={{-86,10},{-66,-10}})));
@@ -73,8 +73,8 @@ parameter Modelica.SIunits.Volume VWat=1.5E-6*chaudiere.Q_flow_nominal
         rotation=0,
         origin={-38,16})));
   Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(
-        transformation(extent={{64,38},{100,74}}), iconTransformation(
-          extent={{64,38},{100,74}})));
+        transformation(extent={{100,38},{136,74}}),iconTransformation(
+          extent={{100,38},{136,74}})));
   Modelica.Blocks.Interfaces.BooleanInput Mode_ECS
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-106},{-100,-66}})));
@@ -100,21 +100,21 @@ parameter Modelica.SIunits.Volume VWat=1.5E-6*chaudiere.Q_flow_nominal
   Modelica.Blocks.Math.MultiSum multiSum(nu=4)
     annotation (Placement(transformation(extent={{38,-68},{50,-56}})));
   Modelica.Blocks.Interfaces.RealOutput consoElec_ch
-    annotation (Placement(transformation(extent={{88,-72},{108,-52}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaPboi(KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower,
-      description="Boiler heating electrical power consumption")
-    annotation (Placement(transformation(extent={{76,-40},{84,-32}})));
+    annotation (Placement(transformation(extent={{100,-82},{140,-42}})));
+  IBPSA.Utilities.IO.SignalExchange.Read reaPpum(KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower,
+      description="Boiler pump electrical power consumption")
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   IBPSA.Utilities.IO.SignalExchange.Overwrite oveBoi(description="Boiler control signal",
       u(
       min=0,
       max=1,
       unit="1"))
-    annotation (Placement(transformation(extent={{-44,48},{-28,64}})));
+    annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
   Modelica.Blocks.Sources.RealExpression QWat_flow(y=chaudiere.QWat_flow)
-    annotation (Placement(transformation(extent={{18,80},{62,98}})));
+    annotation (Placement(transformation(extent={{16,80},{62,100}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaPhea(description="Heating thermal power consumption",
       KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.GasPower)
-    annotation (Placement(transformation(extent={{76,84},{86,94}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
 //  QFue_flow = chaudiere.QFue_flow;
@@ -122,11 +122,11 @@ equation
   eta = chaudiere.eta;
 
   connect(chaudiere.heatPort, heatPort)
-    annotation (Line(points={{0,7.2},{0,72}}, color={191,0,0}));
+    annotation (Line(points={{0,7.2},{0,100}},color={191,0,0}));
   connect(massFlowRate.port_a, port_a)
     annotation (Line(points={{-86,0},{-104,0}},          color={0,127,255}));
-  connect(chaudiere.T, T) annotation (Line(points={{11,8},{20,8},{20,56},{
-          82,56}}, color={0,0,127}));
+  connect(chaudiere.T, T) annotation (Line(points={{11,8},{20,8},{20,56},{118,
+          56}},    color={0,0,127}));
   connect(chaudiere.port_b, port_b)
     annotation (Line(points={{10,0},{102,0},{102,0}}, color={0,127,255}));
   connect(T_depart.port, port_b)
@@ -148,21 +148,21 @@ equation
   connect(Tmeas4.y,multiSum. u[4]) annotation (Line(points={{-9.3,-102},{32,-102},
           {32,-65.15},{38,-65.15}}, color={0,0,127}));
   connect(multiSum.y, consoElec_ch)
-    annotation (Line(points={{51.02,-62},{98,-62}}, color={0,0,127}));
+    annotation (Line(points={{51.02,-62},{120,-62}},color={0,0,127}));
   connect(massFlowRate.m_flow, ONOFFChaudiere.u)
     annotation (Line(points={{-76,-11},{-76,-32},{-26,-32}}, color={0,0,127}));
   connect(m_PompeCirc, combiTable1D.u[1]) annotation (Line(points={{-120,-50},{-60,
           -50},{-60,-60},{2,-60}}, color={0,0,127}));
   connect(Mode_ECS, booleanToReal3.u) annotation (Line(points={{-120,-86},{-60,-86},
           {-60,-84},{2,-84}}, color={255,0,255}));
-  connect(multiSum.y, reaPboi.u) annotation (Line(points={{51.02,-62},{58,-62},{
-          58,-36},{75.2,-36}}, color={0,0,127}));
+  connect(multiSum.y,reaPpum. u) annotation (Line(points={{51.02,-62},{58,-62},
+          {58,-30},{78,-30}},  color={0,0,127}));
   connect(y, oveBoi.u)
-    annotation (Line(points={{-78,56},{-45.6,56}}, color={0,0,127}));
+    annotation (Line(points={{-120,56},{-62,56}},  color={0,0,127}));
   connect(oveBoi.y, chaudiere.y)
-    annotation (Line(points={{-27.2,56},{-12,56},{-12,8}}, color={0,0,127}));
+    annotation (Line(points={{-39,56},{-12,56},{-12,8}},   color={0,0,127}));
   connect(QWat_flow.y, reaPhea.u)
-    annotation (Line(points={{64.2,89},{75,89}}, color={0,0,127}));
+    annotation (Line(points={{64.3,90},{78,90}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{100,100}})),
                                                                      Icon(
         coordinateSystem(extent={{-100,-120},{100,100}}),
