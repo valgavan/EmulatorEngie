@@ -1,6 +1,6 @@
 within DetachedHouse_ENGIE_IBPSAP1.Building.Control;
 model ConHeaZon "Controller for zone heating"
-  extends ConHea(oveHea(u(
+  extends ConHea(oveActHea(u(
         min=0,
         max=1,
         unit="1")), oveTsetHea(u(
