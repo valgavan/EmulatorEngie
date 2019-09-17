@@ -35,10 +35,10 @@ model ConHea "General controller for heating system"
       unit="K"), description="Zone temperature setpoint for heating")
     annotation (Placement(transformation(extent={{-92,26},{-84,34}})));
 
-  IBPSA.Utilities.IO.SignalExchange.Overwrite oveHea(u(
+  IBPSA.Utilities.IO.SignalExchange.Overwrite oveActHea(u(
       min=0,
       max=1,
-      unit="1"), description="Zone temperature setpoint for heating")
+      unit="1"), description="Actuator signal for heating")
     annotation (Placement(transformation(extent={{-28,6},{-20,14}})));
 equation
   connect(conHea.y, gaiHea.u)
@@ -49,9 +49,9 @@ equation
           {-82,20},{-78.8,20}}, color={0,0,127}));
   connect(T, conHea.u_m)
     annotation (Line(points={{-108,12},{-74,12},{-74,15.2}}, color={0,0,127}));
-  connect(gaiHea.y, oveHea.u) annotation (Line(points={{-51.6,20},{-40,20},{-40,
-          10},{-28.8,10}}, color={0,0,127}));
-  connect(oveHea.y, yHea)
+  connect(gaiHea.y, oveActHea.u) annotation (Line(points={{-51.6,20},{-40,20},{
+          -40,10},{-28.8,10}}, color={0,0,127}));
+  connect(oveActHea.y, yHea)
     annotation (Line(points={{-19.6,10},{10,10}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-20},{0,40}},   preserveAspectRatio=false)),
