@@ -8,7 +8,7 @@ model Regul_Clim_1
     Ti=300,
     reverseAction=true,
     k=5e-2) "Controller for cooling"
-    annotation (Placement(transformation(extent={{-62,16},{-54,24}})));
+    annotation (Placement(transformation(extent={{-68,16},{-60,24}})));
   Modelica.Blocks.Interfaces.RealInput T annotation (Placement(transformation(
         rotation=0,
         extent={{-16,-16},{16,16}},
@@ -16,9 +16,9 @@ model Regul_Clim_1
             {-108,10})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow for heating and cooling"
-    annotation (Placement(transformation(extent={{-26,4},{-14,16}})));
+    annotation (Placement(transformation(extent={{-24,4},{-12,16}})));
   Modelica.Blocks.Math.Gain gaiCoo(k=-Kcoo)
-    annotation (Placement(transformation(extent={{-46,16},{-38,24}})));
+    annotation (Placement(transformation(extent={{-54,16},{-46,24}})));
   Modelica.Blocks.Interfaces.RealInput ConsigneClim
     "Connector of setpoint input signal" annotation (Placement(transformation(
           extent={{-132,-34},{-100,-2}}), iconTransformation(extent={{-116,
@@ -30,27 +30,38 @@ model Regul_Clim_1
       min=273.15 + 23,
       max=273.15 + 30,
       unit="K"), description="Zone temperature setpoint for cooling")
-    annotation (Placement(transformation(extent={{-78,16},{-70,24}})));
+    annotation (Placement(transformation(extent={{-84,16},{-76,24}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaPcoo(description=
         "Cooling electrical power consumption", KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower)
-    annotation (Placement(transformation(extent={{-10,26},{-2,34}})));
+    annotation (Placement(transformation(extent={{-8,26},{0,34}})));
+  IBPSA.Utilities.IO.SignalExchange.Overwrite ovePCoo(description=
+        "Precribed cooling power", u(
+      min=-1e4,
+      max=0,
+      unit="W"))
+    annotation (Placement(transformation(extent={{-40,16},{-32,24}})));
+  Modelica.Blocks.Math.Gain HeaToPowFactor(k=-3)
+    "Heating to power factor related to the energy efficiency of the air conditioner"
+    annotation (Placement(transformation(extent={{-22,26},{-14,34}})));
 equation
-  connect(T,conCoo. u_m) annotation (Line(points={{-116,10},{-58,10},{-58,
-          15.2}},
+  connect(T,conCoo. u_m) annotation (Line(points={{-116,10},{-64,10},{-64,15.2}},
         color={0,0,127}));
   connect(conCoo.y, gaiCoo.u)
-    annotation (Line(points={{-53.6,20},{-46.8,20}}, color={0,0,127}));
-  connect(preHea.Q_flow, gaiCoo.y) annotation (Line(points={{-26,10},{-32,
-          10},{-32,20},{-37.6,20}},
-                                color={0,0,127}));
+    annotation (Line(points={{-59.6,20},{-54.8,20}}, color={0,0,127}));
   connect(preHea.port, P)
-    annotation (Line(points={{-14,10},{0,10}}, color={191,0,0}));
+    annotation (Line(points={{-12,10},{0,10}}, color={191,0,0}));
   connect(conCoo.u_s, oveTsetCoo.y)
-    annotation (Line(points={{-62.8,20},{-69.6,20}}, color={0,0,127}));
-  connect(oveTsetCoo.u, ConsigneClim) annotation (Line(points={{-78.8,20},{-82,
-          20},{-82,-18},{-116,-18}}, color={0,0,127}));
-  connect(gaiCoo.y, reaPcoo.u) annotation (Line(points={{-37.6,20},{-28,20},{
-          -28,30},{-10.8,30}}, color={0,0,127}));
+    annotation (Line(points={{-68.8,20},{-75.6,20}}, color={0,0,127}));
+  connect(oveTsetCoo.u, ConsigneClim) annotation (Line(points={{-84.8,20},{-96,
+          20},{-96,-18},{-116,-18}}, color={0,0,127}));
+  connect(gaiCoo.y, ovePCoo.u)
+    annotation (Line(points={{-45.6,20},{-40.8,20}}, color={0,0,127}));
+  connect(ovePCoo.y, preHea.Q_flow) annotation (Line(points={{-31.6,20},{-28,20},
+          {-28,10},{-24,10}}, color={0,0,127}));
+  connect(reaPcoo.u, HeaToPowFactor.y)
+    annotation (Line(points={{-8.8,30},{-13.6,30}}, color={0,0,127}));
+  connect(HeaToPowFactor.u, preHea.Q_flow) annotation (Line(points={{-22.8,30},
+          {-28,30},{-28,10},{-24,10}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-20},{0,40}},   preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-100,-20},{0,40}})),
