@@ -1,13 +1,13 @@
-﻿within DetachedHouse_ENGIE_IBPSAP1.Building.Gains;
+within DetachedHouse_ENGIE_IBPSAP1.Building.Gains;
 model Q_rad_5
 
   parameter Real Q_occupant = 70
-    "Apport thermique par occupant en été (en W/occupant)";
+    "Apport thermique par occupant en ete (en W/occupant)";
   parameter Real N_occupants = 1/20
     "Nombre d'occupants au m2 (en Occupant/m2)";
 
   parameter Real Q_autres = 5.7 "Autre apport thermique interne (en W/m2)";
-  parameter Real Q_ecl = 1.12 "Apport dû à l'éclairage (en W/m2)";
+  parameter Real Q_ecl = 1.12 "Apport du a l'eclairage (en W/m2)";
 
   Modelica.Blocks.Math.Gain gain2(k=Q_autres)
     annotation (Placement(transformation(extent={{0,12},{12,24}})));

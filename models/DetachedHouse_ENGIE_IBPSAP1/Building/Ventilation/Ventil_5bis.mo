@@ -34,10 +34,10 @@ model Ventil_5bis
         origin={5,51})));
   IBPSA.Utilities.IO.SignalExchange.Read rearelHum(
     KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity,
-
     y(unit="1"),
     description="Zone relative humidity")
     annotation (Placement(transformation(extent={{30,46},{36,52}})));
+
 equation
   connect(fan.port_a, ports1[1])
     annotation (Line(points={{20,30},{42,30},{42,31}}, color={0,127,255}));

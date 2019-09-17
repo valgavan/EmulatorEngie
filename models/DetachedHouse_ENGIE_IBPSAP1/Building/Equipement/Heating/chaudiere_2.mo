@@ -115,10 +115,10 @@ parameter Modelica.SIunits.Volume VWat=1.5E-6*chaudiere.Q_flow_nominal
     annotation (Placement(transformation(extent={{16,80},{62,100}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaPhea(
     KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.GasPower,
-
     description="Boilerthermal energy usage",
     y(unit="W"))
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
+
 equation
 
 //  QFue_flow = chaudiere.QFue_flow;

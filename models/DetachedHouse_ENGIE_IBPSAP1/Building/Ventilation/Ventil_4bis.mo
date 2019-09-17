@@ -1,10 +1,10 @@
-﻿within DetachedHouse_ENGIE_IBPSAP1.Building.Ventilation;
+within DetachedHouse_ENGIE_IBPSAP1.Building.Ventilation;
 model Ventil_4bis
 
   package MediumA = Buildings.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate Q = 1
-    "Débit dû à la perméabilité";
+    "Debit du a la permeabilite";
 
   Buildings.Fluid.Sources.MassFlowSource_T sinInf_ventilation(
     m_flow=1,

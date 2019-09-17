@@ -1,4 +1,4 @@
-﻿within DetachedHouse_ENGIE_IBPSAP1.Building.Schedules;
+within DetachedHouse_ENGIE_IBPSAP1.Building.Schedules;
 model Schedules_MI_ZoneJour "French thermal regulation schedules"
 
 parameter Modelica.SIunits.Temperature SetHeaOccup=19+273.15
@@ -71,12 +71,12 @@ parameter Real delta_ST=1.8
     period=604800,
     occupancy=3600*{8,10,18,22,32,34,42,46,56,58,66,70,80,82,90,94,104,106,
         114,118,128,142,152,166},
-    firstEntryOccupied=true) "Occupation de la zone jour à 100%"
+    firstEntryOccupied=true) "Occupation de la zone jour a 100%"
     annotation (Placement(transformation(extent={{-70,-10},{-60,0}})));
   Buildings.Controls.SetPoints.OccupancySchedule ZoneJour_50(
     firstEntryOccupied=true,
     occupancy=3600*{7,8,22,23},
-    period=86400) "Occupation de la zone jour à 50%"
+    period=86400) "Occupation de la zone jour a 50%"
     annotation (Placement(transformation(extent={{-70,-30},{-60,-20}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean1(
                                                    threshold=0.1)
