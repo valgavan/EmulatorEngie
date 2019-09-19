@@ -1265,13 +1265,13 @@ public
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         MediumW)
     annotation (Placement(transformation(extent={{-110,-194},{-102,-186}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaTHeaSetZone(
+  IBPSA.Utilities.IO.SignalExchange.Read reaTSetHea(
     KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"),
     description="Zone setpoint temperature")
     annotation (Placement(transformation(extent={{-332,40},{-326,46}})));
 
-  IBPSA.Utilities.IO.SignalExchange.Read reaTCooSetZone1(
+  IBPSA.Utilities.IO.SignalExchange.Read reaTSetCoo(
     KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"),
     description="Zone setpoint temperature")
@@ -2094,10 +2094,10 @@ equation
                                                    color={0,0,127}));
   connect(massFlowRate.port_b, inSplVal1.port_1) annotation (Line(points={{-91,
           -132},{-92,-132},{-92,-119},{-88,-119}}, color={0,127,255}));
-  connect(schedules_RT2012_MI.HeaSetRT12, reaTHeaSetZone.u) annotation (Line(
-        points={{-352,38},{-336,38},{-336,43},{-332.6,43}}, color={0,0,127}));
-  connect(schedules_RT2012_MI.CooSetRT12, reaTCooSetZone1.u) annotation (Line(
-        points={{-352,34.6},{-346,34.6},{-346,33},{-332.6,33}}, color={0,0,127}));
+  connect(schedules_RT2012_MI.HeaSetRT12, reaTSetHea.u) annotation (Line(points
+        ={{-352,38},{-336,38},{-336,43},{-332.6,43}}, color={0,0,127}));
+  connect(schedules_RT2012_MI.CooSetRT12, reaTSetCoo.u) annotation (Line(points
+        ={{-352,34.6},{-346,34.6},{-346,33},{-332.6,33}}, color={0,0,127}));
   connect(con_pumHea.yHea, Boiler.m_PompeCirc) annotation (Line(points={{-175.4,
           -206},{-168,-206},{-168,-144},{-152,-144},{-152,-143.636}}, color={0,
           0,127}));
