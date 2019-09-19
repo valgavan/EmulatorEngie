@@ -180,7 +180,7 @@ protected
   parameter Modelica.SIunits.MassFlowRate Q_Combles = 0.5*S_Combles*H_Combles/2/3600*d_air;
 
   Modelica.Blocks.Sources.BooleanExpression boolean_ModeDHW(y=false)
-    annotation (Placement(transformation(extent={{-198,-174},{-178,-154}})));
+    annotation (Placement(transformation(extent={{-190,-170},{-178,-154}})));
   Buildings.Controls.Continuous.OffTimer
            offHys
     annotation (Placement(transformation(extent={{-284,-124},{-274,-114}})));
@@ -1239,13 +1239,13 @@ public
         extent={{-4,3},{4,-3}},
         rotation=90,
         origin={-91,-136})));
-  Building.Control.ConHea con_pumHea(
+  Building.Control.ConHea conPumHea(
     Khea=mBoi_flow_nominal,
     k=1,
     Ti=600) annotation (Placement(transformation(
-        extent={{13.0001,-8},{-13,8.00002}},
+        extent={{8.00015,-5},{-8.00025,5.00001}},
         rotation=180,
-        origin={-191,-206})));
+        origin={-202,-209})));
   Buildings.Fluid.Movers.FlowControlled_m_flow
                                            pompe_chaudiere(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -2017,8 +2017,8 @@ equation
                                              color={0,127,255}));
   connect(pompe_chaudiere.port_a, outSplVal1.port_3) annotation (Line(points={{-78,
           -175},{-78,-174},{-47,-174},{-47,-124}},            color={0,127,255}));
-  connect(boolean_ModeDHW.y, Boiler.Mode_ECS) annotation (Line(points={{-177,
-          -164},{-166,-164},{-166,-146.909},{-152,-146.909}},
+  connect(boolean_ModeDHW.y, Boiler.Mode_ECS) annotation (Line(points={{-177.4,
+          -162},{-158,-162},{-158,-146.909},{-152,-146.909}},
                                                         color={255,0,255}));
   connect(offHys.y,greaterEqualThreshold. u) annotation (Line(points={{-273.5,-119},
           {-269,-119}},                       color={0,0,127}));
@@ -2054,11 +2054,11 @@ equation
   connect(Meas_T_LivingRoom.y, con_HeaModeBoiler.u_m) annotation (Line(points={{
           -326.1,-247},{-266,-247},{-266,-223.2}}, color={0,0,127}));
   connect(Boiler.T, regul_Chaudiere_Securite.T) annotation (Line(points={{-128.2,
-          -134},{-132,-134},{-132,-130},{-216,-130},{-216,-144},{-336,-144},{
+          -134},{-122,-134},{-122,-130},{-216,-130},{-216,-144},{-336,-144},{
           -336,-182.5},{-308.04,-182.5}},
                                      color={0,0,127}));
-  connect(con_pumHea.yHea, pompe_chaudiere.m_flow_in) annotation (Line(points={{-175.4,
-          -206},{-83,-206},{-83,-181}},        color={0,0,127}));
+  connect(conPumHea.yHea, pompe_chaudiere.m_flow_in) annotation (Line(points={{
+          -192.4,-209},{-83,-209},{-83,-181}}, color={0,0,127}));
   connect(Meas_T_LivingRoom.y, onOffController.u) annotation (Line(points={{-326.1,
           -247},{-314,-247},{-314,-238},{-298,-238}}, color={0,0,127}));
   connect(product1.y, switch1.u1) annotation (Line(points={{-217,-176},{-208,-176},
@@ -2066,11 +2066,11 @@ equation
   connect(product1.y, greaterThreshold.u) annotation (Line(points={{-217,-176},{
           -208,-176},{-208,-152},{-308,-152},{-308,-119},{-301,-119}}, color={0,
           0,127}));
-  connect(switch4.y, product1.u1) annotation (Line(points={{-221.4,-226},{-210,-226},
-          {-210,-196},{-250,-196},{-250,-170},{-240,-170}}, color={0,0,127}));
-  connect(Meas_T_LivingRoom.y, con_pumHea.T) annotation (Line(points={{-326.1,
-          -247},{-314,-247},{-314,-206},{-206.08,-206}},
-                                                   color={0,0,127}));
+  connect(switch4.y, product1.u1) annotation (Line(points={{-221.4,-226},{-218,
+          -226},{-218,-196},{-248,-196},{-248,-170},{-240,-170}},
+                                                            color={0,0,127}));
+  connect(Meas_T_LivingRoom.y, conPumHea.T) annotation (Line(points={{-326.1,
+          -247},{-314,-247},{-314,-209},{-211.28,-209}}, color={0,0,127}));
   connect(bou.ports[1], temRet.port_a) annotation (Line(points={{-102,-190},{
           -94,-190},{-94,-174}},
                              color={0,127,255}));
@@ -2083,9 +2083,9 @@ equation
           {8,16},{9.36,16}}, color={0,0,127}));
   connect(HeaSet_LivingRoom.y, onOffController.reference) annotation (Line(
         points={{-328.1,-210},{-306,-210},{-306,-226},{-298,-226}}, color={0,0,127}));
-  connect(HeaSet_LivingRoom.y, con_pumHea.ConsigneCh) annotation (Line(points={{-328.1,
-          -210},{-314,-210},{-314,-202},{-226,-202},{-226,-211.333},{-206.08,
-          -211.333}}, color={0,0,127}));
+  connect(HeaSet_LivingRoom.y, conPumHea.ConsigneCh) annotation (Line(points={{
+          -328.1,-210},{-314,-210},{-314,-202},{-226,-202},{-226,-212.333},{
+          -211.28,-212.333}}, color={0,0,127}));
   connect(conHeaBoiler.yHea, val_chaudiere.y) annotation (Line(points={{-115.4,
           -124},{-113,-124},{-113,-133}},
                                     color={0,0,127}));
@@ -2098,8 +2098,8 @@ equation
         ={{-352,38},{-336,38},{-336,43},{-332.6,43}}, color={0,0,127}));
   connect(schedules_RT2012_MI.CooSetRT12, reaTSetCoo.u) annotation (Line(points
         ={{-352,34.6},{-346,34.6},{-346,33},{-332.6,33}}, color={0,0,127}));
-  connect(con_pumHea.yHea, Boiler.m_PompeCirc) annotation (Line(points={{-175.4,
-          -206},{-168,-206},{-168,-144},{-152,-144},{-152,-143.636}}, color={0,
+  connect(conPumHea.yHea, Boiler.m_PompeCirc) annotation (Line(points={{-192.4,
+          -209},{-162,-209},{-162,-144},{-152,-144},{-152,-143.636}}, color={0,
           0,127}));
   connect(realExpression13.y, reaHeaSal.u)
     annotation (Line(points={{-77.7,-145},{-70.6,-145}}, color={0,0,127}));

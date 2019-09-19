@@ -24,7 +24,7 @@ model ConHea "General controller for heating system"
         extent={{-8,-8},{8,8}},
         origin={-108,30}), iconTransformation(extent={{-116,22},{-100,38}})));
   Modelica.Blocks.Math.Gain gaiHea(k=Khea)
-    annotation (Placement(transformation(extent={{-60,16},{-52,24}})));
+    annotation (Placement(transformation(extent={{-38,16},{-30,24}})));
   parameter Real Khea=1e6 "Gain value for the heating controller";
   parameter Real k=1e-2 "Gain of controller";
   parameter Modelica.SIunits.Time Ti=1e2
@@ -39,20 +39,20 @@ model ConHea "General controller for heating system"
       min=0,
       max=1,
       unit="1"), description="Actuator signal for heating")
-    annotation (Placement(transformation(extent={{-28,6},{-20,14}})));
+    annotation (Placement(transformation(extent={{-58,16},{-50,24}})));
 equation
-  connect(conHea.y, gaiHea.u)
-    annotation (Line(points={{-69.6,20},{-60.8,20}}, color={0,0,127}));
   connect(ConsigneCh, oveTsetHea.u)
     annotation (Line(points={{-108,30},{-92.8,30}}, color={0,0,127}));
   connect(oveTsetHea.y, conHea.u_s) annotation (Line(points={{-83.6,30},{-82,30},
           {-82,20},{-78.8,20}}, color={0,0,127}));
   connect(T, conHea.u_m)
     annotation (Line(points={{-108,12},{-74,12},{-74,15.2}}, color={0,0,127}));
-  connect(gaiHea.y, oveActHea.u) annotation (Line(points={{-51.6,20},{-40,20},{
-          -40,10},{-28.8,10}}, color={0,0,127}));
-  connect(oveActHea.y, yHea)
-    annotation (Line(points={{-19.6,10},{10,10}}, color={0,0,127}));
+  connect(conHea.y, oveActHea.u)
+    annotation (Line(points={{-69.6,20},{-58.8,20}}, color={0,0,127}));
+  connect(gaiHea.u, oveActHea.y)
+    annotation (Line(points={{-38.8,20},{-49.6,20}}, color={0,0,127}));
+  connect(gaiHea.y, yHea) annotation (Line(points={{-29.6,20},{-14,20},{-14,10},
+          {10,10}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-20},{0,40}},   preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-100,-20},{0,40}})),
